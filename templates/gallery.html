@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>CarTrade Gallery</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    
+    font-family: sans-serif;
+    background: linear-gradient(to right, rgb(255, 245, 244), #eaedf0);
+  }
+  section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+
+  }
+  nav {
+    background-color: transparent;
+    color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+nav img{
+    height: 60px;
+    margin: 0 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+nav ul li a {
+  
+  
+  margin: 0 10px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 20px;
+}
+.right-nav{
+  display: flex;
+  justify-content: end;
+}
+nav .right-nav li:last-child a {
+  padding: 10px 35px;
+  background-color: #474F52;
+  color: #fff;
+  border-radius: 25px;
+  font-weight: 500;
+}
+nav ul li:nth-child(5)  {
+  /* Styles for the 5th child, which is the "SignUp" list item */
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+  h1 {
+    margin: 2rem 0;
+    color: #000000;
+    font-weight: bold;
+  }
+  
+  .grid-container {
+    columns: 5 200px;
+    column-gap: 1.5rem;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .grid-container div {
+    width: 150px;
+    margin: 0 1.5rem 1.5rem 0;
+    display: inline-block;
+    width: 100%;
+    border: solid 2px black;
+    padding: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: all 0.25s ease-in-out;
+  }
+
+  .grid-container div:hover img {
+    filter: grayscale(0);
+  }
+
+  .grid-container div:hover {
+    border-color: rgb(255, 255, 255);
+  }
+
+  .grid-container div img {
+    width: 100%;
+    filter: grayscale(100%);
+    border-radius: 5px;
+    transition: all 0.25s ease-in-out;
+  }
+
+  .grid-container div p {
+    margin: 5px 0;
+    padding: 0;
+    text-align: center;
+    font-style: italic;
+  }
+
+  
+  .secondary-headline {
+    font-size: 40px;
+    margin: 15px 0px;
+    /* font-weight: 600; */
+    color: #000;
+    text-align: center;
+  }
+
+  .footer {
+    background-color: #000;
+  }
+  
+  .footer__container {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 5rem;
+  }
+  
+  .footer__col img {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  
+  .footer__col h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .footer__col h4 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .footer__col p {
+    margin-bottom: 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .footer__col p:hover {
+    color: #fff;
+  }
+  
+  .footer__col a {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+  }
+  
+  .footer__col a:hover {
+    color: #fff;
+  }
+  
+  .footer__bar {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark);
+    text-align: center;
+    overflow: hidden;
+  }
+  .section__container {
+    width: 80%;
+    margin: auto;
+    padding: 3rem 1rem;
+    margin-top: 20px;
+  }
+</style>
+<body>
+    <nav>
+        <ul class="img-nav">
+          <li>
+            <a href="/"
+              ><img
+                src="{{ url_for('static', filename= 'photo/logo.png')}}"
+                alt=""
+            /></a>
+          </li>
+        </ul>
+        <ul class="center">
+          <li><a href="/">Home</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="/cars_html">Cars</a></li>
+          <li><a href="">Rental Details</a></li>
+        </ul>
+        <ul class="right-nav">
+          <li><a href="">SignUp</a></li>
+          <li><a href="/login">LogIn</a></li>
+        </ul>
+      </nav>
+      <section>
+    <h1>Car Images Gallery</h1>
+<div class="grid-container">
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617083278485-ed52e6a8decb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGNhciUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"The future doesn’t need roads."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1591738802175-709fedef8288?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fGNhciUyMGltYWdlcyUyMG5pc3NhbiUyMEdUUnxlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Dude, where’s my car?"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1511527844068-006b95d162c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxjYXIlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"We’ll be riding forever."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1621993202323-f438eec934ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE2fHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Get there sooner."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1506671753197-8d137cc5d53c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMwfHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Say hello to the future."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1559038465-e0ca2910a5b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZyUyMHdhZ29ufGVufDB8fDB8fHww' alt=''>
+    <p>"My baby, my beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1592853625601-bb9d23da12fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"The fuel of happiness."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://media.istockphoto.com/id/1364998586/photo/concept-car.webp?b=1&s=170667a&w=0&k=20&c=0IAjs5DVBSc8wp0jECpP5MTlSUSEyyibwJMjZ3dbpYU=' alt=''>
+    <p>"It all starts with a dream."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"New driving experience."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym13fGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJtd3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Unleashing the beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1564988190211-cfee63481d3a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fHdvbGtzd2FnZW58ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"No limits to your imagination."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1618205062886-3976f4bb8219?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3VwcmF8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Eat, sleep, drift, repeat"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1459603677915-a62079ffd002?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFyemFuJTIwY2FyfGVufDB8fDB8fHww' alt=''>
+    <p>"Look at this beauty!"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1623659248894-1a0272243054?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGF1ZGl8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"My baby has arrived"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617083278485-ed52e6a8decb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGNhciUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"The future doesn’t need roads."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1591738802175-709fedef8288?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fGNhciUyMGltYWdlcyUyMG5pc3NhbiUyMEdUUnxlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Dude, where’s my car?"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1511527844068-006b95d162c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxjYXIlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"We’ll be riding forever."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1621993202323-f438eec934ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE2fHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Get there sooner."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1506671753197-8d137cc5d53c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMwfHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Say hello to the future."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1559038465-e0ca2910a5b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZyUyMHdhZ29ufGVufDB8fDB8fHww' alt=''>
+    <p>"My baby, my beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1592853625601-bb9d23da12fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"The fuel of happiness."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://media.istockphoto.com/id/1364998586/photo/concept-car.webp?b=1&s=170667a&w=0&k=20&c=0IAjs5DVBSc8wp0jECpP5MTlSUSEyyibwJMjZ3dbpYU=' alt=''>
+    <p>"It all starts with a dream."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"New driving experience."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym13fGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJtd3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Unleashing the beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1564988190211-cfee63481d3a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fHdvbGtzd2FnZW58ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"No limits to your imagination."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1618205062886-3976f4bb8219?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3VwcmF8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Eat, sleep, drift, repeat"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1459603677915-a62079ffd002?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFyemFuJTIwY2FyfGVufDB8fDB8fHww' alt=''>
+    <p>"Look at this beauty!"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1623659248894-1a0272243054?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGF1ZGl8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"My baby has arrived"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617083278485-ed52e6a8decb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGNhciUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"The future doesn’t need roads."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1591738802175-709fedef8288?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fGNhciUyMGltYWdlcyUyMG5pc3NhbiUyMEdUUnxlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Dude, where’s my car?"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1511527844068-006b95d162c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxjYXIlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"We’ll be riding forever."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1621993202323-f438eec934ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE2fHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Get there sooner."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1506671753197-8d137cc5d53c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMwfHxjYXIlMjBpbWFnZXMlMjBuaXNzYW4lMjBHVFJ8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Say hello to the future."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1559038465-e0ca2910a5b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZyUyMHdhZ29ufGVufDB8fDB8fHww' alt=''>
+    <p>"My baby, my beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1592853625601-bb9d23da12fc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"The fuel of happiness."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://media.istockphoto.com/id/1364998586/photo/concept-car.webp?b=1&s=170667a&w=0&k=20&c=0IAjs5DVBSc8wp0jECpP5MTlSUSEyyibwJMjZ3dbpYU=' alt=''>
+    <p>"It all starts with a dream."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"New driving experience."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym13fGVufDB8fDB8fHww' alt=''>
+    <p>"Shift to success mode."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJtd3xlbnwwfHwwfHx8MA%3D%3D' alt=''>
+    <p>"Unleashing the beast."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1564988190211-cfee63481d3a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fHdvbGtzd2FnZW58ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"No limits to your imagination."</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1618205062886-3976f4bb8219?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3VwcmF8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"Eat, sleep, drift, repeat"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1459603677915-a62079ffd002?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFyemFuJTIwY2FyfGVufDB8fDB8fHww' alt=''>
+    <p>"Look at this beauty!"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1459603677915-a62079ffd002?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFyemFuJTIwY2FyfGVufDB8fDB8fHww' alt=''>
+    <p>"Look at this beauty!"</p>
+  </div>
+  <div>
+    <img class='grid-item' src='https://images.unsplash.com/photo-1623659248894-1a0272243054?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGF1ZGl8ZW58MHx8MHx8fDA%3D' alt=''>
+    <p>"My baby has arrived"</p>
+  </div>
+</section>
+<footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <img src="{{url_for('static',filename='photo/hhhh.png')}}" alt="" />
+        <p>
+          CarTrade is a premier hotel booking website that offers a seamless and
+          convenient way to find and book accommodations worldwide.
+        </p>
+        <p>
+          With a user-friendly interface and a vast selection of hotels, SAAT
+          aims to provide a stress-free experience for travelers seeking the
+          perfect stay.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <p>About Us</p>
+        <p>Blog</p>
+        <p>Book</p>
+        <p>Contact Us</p>
+      </div>
+      <div class="footer__col">
+        <h4>Legal</h4>
+        <p>FAQs</p>
+        <p>Terms & Conditions</p>
+        <p>Privacy Policy</p>
+      </div>
+      <div class="footer__col">
+        <h4>Resources</h4>
+        <p>Social Media</p>
+        <p>
+          <a href="/login"><i class="fa-brands fa-facebook"></i></a>
+          <a href=""><i class="fa-brands fa-twitter"></i></a>
+          <a href=""><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-youtube"></i></a>
+          <a href=""><i class="fa-brands fa-tiktok"></i></a>
+        </p>
+        <p>Partnerships</p>
+      </div>
+    </div>
+    <div class="footer__bar">
+      Copyright © 2023 SAAT Hotels. All rights reserved.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

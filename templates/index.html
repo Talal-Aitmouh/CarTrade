@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CarTrade</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+  <style>
+    
+    .cus-w-process {
+      width: 37%;
+    }
+
+    .card {
+      border: none !important;
+    }
+
+    .card:hover h2 {
+      color: white !important;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover .border {
+      background: #474F52;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      box-shadow: 0rem 0rem 1rem 0rem #ebebeb;
+      transition: all 0.3s ease-in-out;
+    }
+    .container1 {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100vh;
+      background: #fff;
+    }
+
+    .card1 {
+      position: relative;
+      width: 320px;
+      height: 400px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    .card1 .imgBx {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      border-radius: 15px;
+    }
+
+    .card1 .imgBx img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .card1 .imgBx::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: -10px 10px 0 #fff;
+    }
+
+    .card1 .imgBx::after {
+      content: "";
+      position: absolute;
+      bottom: 68px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: -10px 10px 0 #fff;
+    }
+
+    .card1 .content {
+      position: relative;
+      width: 100%;
+      height: 150px;
+      background: #728089;
+      border-radius: 15px;
+      border-top-left-radius: 0;
+    }
+
+    .card1 .content ul {
+      padding: 0 20px;
+      color: #fff;
+      font-size: 18px;
+      list-style: none;
+    }
+
+    .card1 .content p {
+      font-size: 14px;
+    }
+
+    .card1 .content .price {
+      position: absolute;
+      top: -52%;
+      height: 52%;
+      width: 50%;
+      background: #728089;
+      border-top: 10px solid #fff;
+      border-right: 10px solid #fff;
+      border-top-right-radius: 25px;
+    }
+
+    .card1 .content .price a {
+      position: relative;
+      background: #fff;
+      padding: 10px 20px;
+      margin: 15px;
+      display: block;
+      border-radius: 7px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      color: #728089;
+      transition: 0.5s;
+      border: 2px solid #728089;
+    }
+
+    .card1 .content .price a:hover {
+      color: #fff;
+      background: #728089;
+      border: 2px solid #fff;
+    }
+
+    .card1 .content .price::before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: -10px -10px 0#fff;
+    }
+
+    .card1 .content .price::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: -25px;
+      width: 25px;
+      height: 25px;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: -10px 10px 0 #728089;
+    }
+  </style>
+
+  <body>
+    <div id="loading-animation" class="loading-animation">
+      <div class="loader"></div>
+    </div>
+    <header>
+      <!-- Navbar -->
+      <nav id="mainNav">
+        <ul class="img-nav">
+          <li>
+            <a href=""
+              ><img
+                src="{{ url_for('static', filename= 'photo/logo.png')}}"
+                alt=""
+            /></a>
+          </li>
+        </ul>
+        <ul class="center">
+          <li><a href="">Home</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/cars_html">Cars</a></li>
+          <li><a href="">Rental Details</a></li>
+        </ul>
+        <ul class="right-nav">
+          <li><a href="/">SignUp</a></li>
+          <li><a href="/login">LogIn</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="content active">
+          <h1>The easiest way to rent a car</h1>
+
+          <img
+            class="img_hero"
+            src="{{ url_for('static', filename='photo/front2.png') }}"
+            alt="Agency Logo"
+          />
+        </div>
+        <div class="content">
+          <h1>Rent Your Dream Car Today</h1>
+
+          <img
+            class="img_hero"
+            src="{{ url_for('static', filename='photo/front1.png') }}"
+            alt="Agency Logo"
+          />
+        </div>
+        <div class="content">
+          <h1>Rent Your Next Adventure</h1>
+
+          <img
+            class="img_hero"
+            src="{{ url_for('static', filename='photo/front3.png') }}"
+            alt="Agency Logo"
+          />
+        </div>
+        <a href="#first">Discover</a>
+      </div>
+    </header>
+    <div class="sec1" id="first">
+      <div class="container1">
+        {% for car in cars %}
+        <div class="card1">
+          <div class="imgBx">
+            <img class="car-image" src="{{ car[7] }}" alt="Car Image" />
+          </div>
+          <div class="content">
+            <span class="price">
+              <a href="/car_detail/{{ car[0] }}">More Info</a>
+            </span>
+            <ul>
+              <li><b>{{ car[1] }} {{ car[2] }}</b></li>
+              <li>{{ car[5] }} $/day</li>
+              <br />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Incidunt, ducimus.
+              </p>
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <section class="sec1">
+      <div class="sec-head">
+        <h1>Why Trust Us</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
+          provident?
+        </p>
+      </div>
+      <div class="boxs1">
+        <div class="box1">
+          <i class="fa-solid fa-money-bill-1-wave fa-2xl" style="color: #000000;"></i>
+          <h1>No credit Card</h1>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos corporis fuga ea laudantium sed.</p>
+        </div>
+        <div class="box1">
+<i class="fa-solid fa-money-bill-1-wave fa-2xl" style="color: #000000;"></i>
+          <h1>No credit Card</h1>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos corporis fuga ea laudantium sed.</p>
+        </div>
+        <div class="box1">
+<i class="fa-solid fa-money-bill-1-wave fa-2xl" style="color: #000000;"></i>
+          <h1>No credit Card</h1>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos corporis fuga ea laudantium sed.</p>
+      </div>
+    </section>
+    <section class="sec2">
+      <div class="heading">
+      <h2>Most Popular <span>Cars</span></h2>
+    </div>
+      <div class="slide">
+        <button id="prev-btn">
+          <i class="fa-solid fa-chevron-left fa-2xl"></i>
+        </button>
+        <div id="car-container"></div>
+        <button id="next-btn">
+          <i class="fa-solid fa-chevron-right fa-2xl"></i>
+        </button>
+      </div>
+      <div class="btn-cars">
+        <a href="/cars_html">More</a>
+      </div>
+    </section>
+
+
+    <article class="wrapper">
+      <div class="marquee">
+        <div class="marquee__group">
+          <img
+            src="{{url_for('static',filename='photo/img/gid1.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid2.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid3.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid4.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid5.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid6.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid7.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid8.png')}}"
+            alt=""
+          />
+        </div>
+        <div aria-hidden="false" class="marquee__group">
+          <img
+            src="{{url_for('static',filename='photo/img/gid1.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid2.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid3.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid4.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid5.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid6.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid7.png')}}"
+            alt=""
+          />
+          <img
+            src="{{url_for('static',filename='photo/img/gid8.png')}}"
+            alt=""
+          />
+        </div>
+      </div>
+    </article>
+
+    <section class="sec3">
+      <h1>Why Chouse Us</h1>
+      <div class="container">
+        <div class="row mt-5 justify-content-center">
+          <div class="col-lg-3 col-9 mb-3 mb-lg-0">
+            <div class="card rounded-4 pt-3 text-center">
+              <div class="card-body cus-font py-5">
+                <div class="border border-light rounded-4 p-3 cus-w-process m-auto">
+                  <h2 class="h2 mb-0 text-secondary fw-bold fs-1">1</h2>
+                </div>
+                <div class="mt-3">
+                  <h3 class="h5">Convenience</h3>
+                  <p> Lorem Ipsum is simply dummy text of the printing
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-9 mb-3 mb-lg-0">
+            <div class="card rounded-4 pt-3 text-center">
+              <div class="card-body cus-font py-5">
+                <div class="border border-light rounded-4 p-3 cus-w-process m-auto">
+                  <h2 class="h2 mb-0 text-secondary fw-bold fs-1">2</h2>
+                </div>
+                <div class="mt-3">
+                  <h3 class="h5">Selection</h3>
+                  <p> Lorem Ipsum is simply dummy text of the printing
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-9">
+            <div class="card rounded-4 pt-3 text-center">
+              <div class="card-body cus-font py-5">
+                <div class="border border-light rounded-4 p-3 cus-w-process m-auto">
+                  <h2 class="h2 mb-0 text-secondary fw-bold fs-1">3</h2>
+                </div>
+                <div class="mt-3">
+                  <h3 class="h5">Quality</h3>
+                  <p> Lorem Ipsum is simply dummy text of the printing
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-9">
+            <div class="card rounded-4 pt-3 text-center">
+              <div class="card-body cus-font py-5">
+                <div class="border border-light rounded-4 p-3 cus-w-process m-auto">
+                  <h2 class="h2 mb-0 text-secondary fw-bold fs-1">4</h2>
+                </div>
+                <div class="mt-3">
+                  <h3 class="h5">Value</h3>
+                  <p> Lorem Ipsum is simply dummy text of the printing
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="client">
+      <div class="section__container client__container">
+        <h2 class="secondary-headline">What our client say</h2>
+        <div class="client__grid">
+          <div
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+            class="client__card"
+          >
+            <img
+              src="{{url_for('static',filename='photo/img/client-2.jpeg')}}"
+              alt="client"
+            />
+            <p>
+              The booking process was seamless, and the confirmation was
+              instant. I highly recommend WDM&Co for hassle-free hotel bookings.
+            </p>
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+            class="client__card"
+          >
+            <img
+              src="{{url_for('static',filename='photo/img/clt.jpg')}}"
+              alt="client"
+            />
+            <p>
+              The website provided detailed information about hotel, including
+              amenities, photos, which helped me make an informed decision.
+            </p>
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+            class="client__card"
+          >
+            <img
+              src="{{url_for('static',filename='photo/img/clt2.jpg')}}"
+              alt="client"
+            />
+            <p>
+              I was able to book a room within minutes, and the hotel exceeded
+              my expectations. I appreciate WDM&Co's efficiency and reliability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="contact-form">
+      <h1 class="heading">Get In Touch!</h1>
+      <p class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor eos
+          inventore omnis aliquid rerum alias molestias.</p>
+      
+      <div class="contactForm">
+          <form action="#">
+           <h1 class="sub-heading">Need Support !</h1>
+           <p class="para para2">Contact us for a quote , help to join the them.</p>
+           <input type="text" class="input" placeholder="your name">
+           <input type="text" class="input" placeholder="your email">
+           <input type="text" class="input" placeholder="your Subject">
+           <textarea class="input" cols="30" rows="5" placeholder="Your message..."></textarea>
+           <input type="submit" class="input submit" value="Send Message">
+          </form>
+  
+          <div class="map-container">
+              <div class="mapBg"></div>
+              <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9914410252845!2d2.291906375932066!3d48.85837360070842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2set!4v1695627657575!5m2!1sen!2set" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+          </div>
+      </div>
+  
+      <div class="contactMethod">
+          <div class="method">
+              <i class="fa-solid fa-location-dot contactIcon"></i>
+              <article class="text">
+                  <h1 class="sub-heading">Location</h1>
+                  <p class="para">2276 Lynn Ogden Lane Beaumont</p>
+              </article>
+          </div>
+  
+          <div class="method">
+              <i class="fa-solid fa-envelope contactIcon"></i>
+              <article class="text">
+                  <h1 class="sub-heading">Email</h1>
+                  <p class="para">Email: programminginsider2021@gmail.com</p>
+              </article>
+          </div>
+  
+          <div class="method">
+              <i class="fa-solid fa-phone contactIcon"></i>
+              <article class="text">
+                  <h1 class="sub-heading">Phone</h1>
+                  <p class="para">2276 Lynn Ogden Lane Beaumont</p>
+              </article>
+          </div>
+      </div>
+     </section>
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <img src="{{url_for('static',filename='photo/hhhh.png')}}" alt="" />
+          <p>
+            CarTrade is a premier hotel booking website that offers a seamless and
+            convenient way to find and book accommodations worldwide.
+          </p>
+          <p>
+            With a user-friendly interface and a vast selection of hotels, SAAT
+            aims to provide a stress-free experience for travelers seeking the
+            perfect stay.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <p>About Us</p>
+          <p>Blog</p>
+          <p>Book</p>
+          <p>Contact Us</p>
+        </div>
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <p>FAQs</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <p>Social Media</p>
+          <p>
+            <a href="/login"><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href=""><i class="fa-brands fa-tiktok"></i></a>
+          </p>
+          <p>Partnerships</p>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2023 SAAT Hotels. All rights reserved.
+      </div>
+    </footer>
+    <script>
+      let cars = [];
+      let currentCarIndex = 0;
+      const carContainer = document.getElementById("car-container");
+
+      // Function to fetch cars from Flask backend
+      function fetchCars() {
+        fetch("/cars")
+          .then((response) => response.json())
+          .then((data) => {
+            cars = data;
+            displayCar(currentCarIndex);
+          })
+          .catch((error) => console.error("Error fetching cars:", error));
+      }
+
+      function displayCar(index) {
+        const car = cars[index];
+        carContainer.innerHTML = `
+              <figure><img src="${car.image_url}" alt="Car Image"></figure>
+              <h2>${car.marque} ${car.modele}</h2>
+              
+              
+              
+          `;
+      }
+
+      function showNextCar() {
+        currentCarIndex = (currentCarIndex + 1) % cars.length;
+        displayCar(currentCarIndex);
+      }
+
+      function showPreviousCar() {
+        currentCarIndex = (currentCarIndex - 1 + cars.length) % cars.length;
+        displayCar(currentCarIndex);
+      }
+
+      // Fetch cars when the page loads
+      document.addEventListener("DOMContentLoaded", fetchCars);
+
+      document
+        .getElementById("next-btn")
+        .addEventListener("click", showNextCar);
+      document
+        .getElementById("prev-btn")
+        .addEventListener("click", showPreviousCar);
+    </script>
+    <script src="{{url_for('static',filename='script.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+  </body>
+</html>

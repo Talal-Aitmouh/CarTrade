@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styleman.css') }}"
+    />
+
+	<title>Manager_Dashboard</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="/" class="brand">
+			<img src="{{ url_for('static', filename= 'photo/hhhh.png')}}" alt="">
+		</a>
+		<ul class="side-menu top">
+			<li >
+				<a href="/home">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/manager_cars">
+					<i class='bx bxs-car'></i>
+					<span class="text">Cars</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="#" >
+					<i class='bx bxs-message-square-add'></i>
+					<span class="text">Add Cars</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">Modify Cars</span>
+				</a>
+			</li>
+			<li>
+				<a href="/reservations">
+					<i class='bx bxs-bookmark-alt-plus'></i>
+					<span class="text">Reservation</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/client_summary">
+					<i class='bx bxs-user'></i>
+					<span class="text">Client</span>
+				</a>
+			</li>
+			<li>
+				<a href="/" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">8</span>
+			</a>
+			<a href="/manager_profile" class="profile">
+				<img src="{{ url_for('static', filename= 'photo/img/talal.png')}}" alt="">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Add Car</h1>
+				</div>
+			</div>
+            <div class="content">
+                <h3>Add New Car</h3>
+                <form action="/add_car" method="POST" enctype="multipart/form-data">
+					<div class="form_item">
+						<label for="marque">Marque:</label>
+						<!-- Use input with datalist for Marque -->
+						<input list="marqueList" id="marque" name="marque" autocomplete="off">
+						<datalist id="marqueList">
+							<option value="Audi">
+							<option value="BMW">
+							<option value="Chevrolet">
+							<option value="Ferrari">
+							<option value="Ford">
+							<option value="Honda">
+							<option value="Hyundai">
+							<option value="Jeep">
+							<option value="Kia">
+							<option value="Lexus">
+							<option value="Maserati">
+							<option value="Mazda">
+							<option value="Mercedes-Benz">
+							<option value="Nissan">
+							<option value="Porsche">
+							<option value="Subaru">
+							<option value="Tesla">
+							<option value="Toyota">
+							<option value="Volkswagen">
+							<option value="Volvo">
+							<option value="Other">Other (Type Below)
+						</datalist><br><br>
+					</div>
+					
+					<div class="form_item">
+						<label for="modele">Modele:</label>
+						<!-- Use input with datalist for Modele -->
+						<input list="modeleList" id="modele" name="modele" required autocomplete="off">
+						<datalist id="modeleList">
+							<!-- Options will be populated dynamically based on selected Marque -->
+						</datalist><br><br>
+					</div>
+					
+					
+					
+					<div class="form_item">
+						<label for="immatriculation">Immatriculation:</label>
+						<input type="text" id="immatriculation" name="immatriculation" pattern="\d{4}\s[A-Z]{2}\s\d{2}" title="Format: 1111 HJ 09" placeholder="1111 HJ 09 " required /><br /><br />
+					</div>
+					<div class="form_item">
+						<label for="categorie">Categorie:</label>
+						<select id="categorie" name="categorie" required>
+							<option value="">Select a category</option>
+							<option value="sedan">Sedan</option>
+							<option value="coupe">Coupe</option>
+							<option value="suv">SUV</option>
+							<option value="super_car">Super Car</option>
+							<option value="pickup">Pickup</option>
+							<option value="hatchback">Hatchback</option>
+						</select><br /><br />
+					</div>
+					<div class="form_item">
+						<label for="prix">Prix:</label>
+						<input type="number" id="prix" name="prix" step="1" min="0" max="100" required /><br /><br />
+					</div>
+					<div class="form_item">
+						<label for="disponibilite">Disponibilite:</label>
+						<select id="disponibilite" name="disponibilite" required>
+							<option value="">Select availability</option>
+							<option value="Disponible">Disponible</option>
+							<option value="Non_disponible">Non disponible</option>
+							<option value="En_cours">En cours</option>
+						</select><br /><br />
+					</div>
+					<div class="form_item">
+						<label for="image_url">Image:</label>
+						<input type="file" name="image_url" accept="image/*" required /><br /><br />
+					</div>
+					<div class="form_item">
+						<button type="submit">Add Car</button>
+					</div>
+				</form>
+				
+              </div>
+
+			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<script>
+		// Define the dictionary of car makes and models
+let carDictionary = {
+  "Toyota": ["Camry", "Corolla", "Rav4", "Prius"],
+  "Honda": ["Accord", "Civic", "CR-V", "Pilot"],
+  "Ford": ["F-150", "Escape", "Explorer", "Focus"],
+  "Chevrolet": ["Silverado", "Equinox", "Malibu", "Tahoe"],
+  "Volkswagen": ["Jetta", "Passat", "Tiguan", "Atlas"],
+  "BMW": ["3 Series", "5 Series", "X3", "X5"],
+  "Mercedes-Benz": ["C-Class", "E-Class", "GLC", "GLE"],
+  "Audi": ["A4", "A6", "Q5", "Q7"],
+  "Tesla": ["Model S", "Model 3", "Model X", "Model Y"],
+  "Nissan": ["Altima", "Sentra", "Rogue", "Pathfinder"],
+  "Hyundai": ["Elantra", "Sonata", "Tucson", "Santa Fe"],
+  "Kia": ["Optima", "Sorento", "Sportage", "Telluride"],
+  "Subaru": ["Outback", "Forester", "Impreza", "Crosstrek"],
+  "Mazda": ["Mazda3", "Mazda6", "CX-5", "CX-9"],
+  "Lexus": ["ES", "RX", "NX", "GX"],
+  "Porsche": ["911", "Cayenne", "Panamera", "Macan"],
+  "Jeep": ["Wrangler", "Cherokee", "Grand Cherokee", "Compass"],
+  "Volvo": ["S60", "XC60", "XC90", "V60"],
+  "Ferrari": ["488 GTB", "812 Superfast", "Portofino", "Roma"],
+  "Maserati": ["Ghibli", "Quattroporte", "Levante", "GranTurismo"]
+};
+
+
+// Function to populate the models datalist based on the selected car make
+function populateModelsDatalist() {
+    let selectedMake = document.getElementById('marque').value;
+    let models = carDictionary[selectedMake] || [];
+    let modeleDatalist = document.getElementById('modeleList');
+    
+    // Clear existing options in modele datalist
+    modeleDatalist.innerHTML = '';
+    
+    // Populate modele datalist with new options
+    models.forEach(function(model) {
+        let option = document.createElement('option');
+        option.value = model;
+        modeleDatalist.appendChild(option);
+    });
+}
+
+// Call populateModelsDatalist() when the car make input changes
+document.getElementById('marque').addEventListener('input', populateModelsDatalist);
+
+// Initialize the models datalist based on the default selected car make (if any)
+populateModelsDatalist();
+	</script>
+
+	<scriptjj src="{{url_for('static', filename='js.js')}}"></scriptjj>
+</body>
+</html>

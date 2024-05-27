@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Details</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+  </head>
+  <body>
+    <div id="loading-animation" class="loading-animation">
+      <div class="loader"></div>
+  </div>
+  <nav>
+    <ul class="img-nav">
+      <li>
+        <a href="/"
+          ><img
+            src="{{ url_for('static', filename= 'photo/logo.png')}}"
+            alt=""
+        /></a>
+      </li>
+    </ul>
+    <ul class="center">
+      <li><a href="/">Home</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/cars_html">Cars</a></li>
+      <li><a href="">Rental Details</a></li>
+    </ul>
+    <ul class="right-nav">
+      <li><a href="">SignUp</a></li>
+      <li><a href="/login">LogIn</a></li>
+    </ul>
+  </nav>
+    <div class="car-details {% if car.disponibilite != 'Disponible' %} black {% endif %}">
+      <div class="left">
+        <img class="{% if car.disponibilite != 'Disponible' %} black {% endif %}" src="../{{ car.image_url }}" alt="Car Image" />
+        <div class="price">
+          <h3>{{ car.prix }}</h3>
+          <p>$/day</p>
+        </div>
+      </div>
+      <div class="right">
+        <h1>{{ car.marque }} {{ car.modele }}</h1>
+        <table>
+          <tr>
+            <th>Modele</th>
+            <td>{{ car.modele }}</td>
+          </tr>
+          <tr>
+            <th>Immatriculation</th>
+            <td>{{ car.immatriculation }}</td>
+          </tr>
+          <tr>
+            <th>Categorie</th>
+            <td>{{ car.categorie }}</td>
+          </tr>
+          <tr>
+            <th>Disponiblety</th>
+            <td>{{ car.disponibilite }}</td>
+          </tr>
+        </table>
+        <a  class="{% if car.disponibilite != 'Disponible' %}  disabled      {% endif %}" href="/reservation_form/{{ car.id }}">Book Now</a>
+
+      </div>
+    </div>
+    <div class="all">
+    <div class="discreption">
+      <h2>Car Description</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt cum
+        animi autem excepturi voluptas nulla. In, cum. Repudiandae, quae, libero
+        neque adipisci dolor qui eum quisquam vero earum illum eveniet?
+      </p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem
+      repudiandae animi assumenda tenetur a laboriosam nesciunt, ipsa rem
+      nostrum aliquid qui ullam non deserunt, aliquam quos, aperiam velit et
+      ducimus!
+    </div>
+      <div class="discreption">
+        <h2>Car Description</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt cum
+          animi autem excepturi voluptas nulla. In, cum. Repudiandae, quae, libero
+          neque adipisci dolor qui eum quisquam vero earum illum eveniet?
+        </p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem
+        repudiandae animi assumenda tenetur a laboriosam nesciunt, ipsa rem
+        nostrum aliquid qui ullam non deserunt, aliquam quos, aperiam velit et
+        ducimus!
+      </div>
+    </div>
+  </div>
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <img src="{{url_for('static',filename='photo/hhhh.png')}}" alt="" />
+          <p>
+            CarTrade is a premier hotel booking website that offers a seamless and
+            convenient way to find and book accommodations worldwide.
+          </p>
+          <p>
+            With a user-friendly interface and a vast selection of hotels, SAAT
+            aims to provide a stress-free experience for travelers seeking the
+            perfect stay.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <p>About Us</p>
+          <p>Blog</p>
+          <p>Book</p>
+          <p>Contact Us</p>
+        </div>
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <p>FAQs</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <p>Social Media</p>
+          <p>
+            <a href="/login"><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href=""><i class="fa-brands fa-tiktok"></i></a>
+          </p>
+          <p>Partnerships</p>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2023 SAAT Hotels. All rights reserved.
+      </div>
+    </footer>
+    <script src="{{url_for('static',filename='script.js')}}"></script>
+  </body>
+</html>

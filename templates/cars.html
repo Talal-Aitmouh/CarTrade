@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylecars.css') }}"
+    />
+    <title>Available Cars</title>
+  </head>
+  <body>
+    <div id="loading-animation" class="loading-animation">
+      <div class="loader"></div>
+    </div>
+    <nav>
+      <ul class="img-nav">
+        <li>
+          <a href="/"
+            ><img
+              src="{{ url_for('static', filename= 'photo/logo.png')}}"
+              alt=""
+          /></a>
+        </li>
+      </ul>
+      <ul class="center">
+        <li><a href="/">Home</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/cars_html">Cars</a></li>
+        <li><a href="">Rental Details</a></li>
+      </ul>
+      <ul class="right-nav">
+        <li><a href="">SignUp</a></li>
+        <li><a href="/login">LogIn</a></li>
+      </ul>
+    </nav>
+    <h1 class="heading">Available Cars</h1>
+    <div class="filters">
+      <input
+        type="number"
+        id="min-price"
+        name="min-price"
+        placeholder="Min Price"
+      />
+      <input
+        type="number"
+        id="max-price"
+        name="max-price"
+        placeholder="Max Price"
+      />
+
+      <!-- Brand Filter -->
+      <select id="brand" name="brand">
+        <option value="">All Brands</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Honda">Honda</option>
+        <!-- Add more brand options as needed -->
+      </select>
+
+      <!-- Category Filter -->
+      <select id="category" name="category">
+        <option value="">All Categories</option>
+        <option value="Compacte">Compacte</option>
+        <option value="SUV">SUV</option>
+        <option value="sedan">Sedan</option>
+        <option value="coupe">Coupe</option>
+        <option value="super_car">Super Car</option>
+        <option value="pickup">Pickup</option>
+        <option value="hatchback">Hatchback</option>
+      </select>
+
+      <!-- Search Input -->
+      <input
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search by model or marque"
+      />
+
+      <!-- Filter Button -->
+      <button onclick="applyFilters()">Apply</button>
+    </div>
+
+    <div class="car-container">
+      {% for car in cars %}
+      <div class="{% if car[6] != 'Disponible' %} black {% endif %}">
+        <div class="box2">
+          <a href="{{ url_for('car_detail', car_id=car[0]) }}">
+            <img class="car-image" src="{{ car[7] }}" alt="Car Image" />
+          </a>
+
+          <div class="details">
+            <h1>{{ car[1] }} {{ car[2] }}</h1>
+            <h2>Prix : {{ car[5] }} $/day</h2>
+            <p>Immaticulation : {{ car[3] }}</p>
+            <p class="lastone">Category : {{ car[4] }}</p>
+            <a href="{{ url_for('car_detail', car_id=car[0]) }} " class="see">See more</a>
+            <a
+              class="{% if car[6] != 'Disponible' %} disabled {% endif %}"
+              href="/reservation_form/{{ car[0] }}"
+              >Rent now</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <img src="{{url_for('static',filename='photo/hhhh.png')}}" alt="" />
+          <p>
+            CarTrade is a premier hotel booking website that offers a seamless
+            and convenient way to find and book accommodations worldwide.
+          </p>
+          <p>
+            With a user-friendly interface and a vast selection of hotels, SAAT
+            aims to provide a stress-free experience for travelers seeking the
+            perfect stay.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <p>About Us</p>
+          <p>Blog</p>
+          <p>Book</p>
+          <p>Contact Us</p>
+        </div>
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <p>FAQs</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <p>Social Media</p>
+          <p>
+            <a href="/login"><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href=""><i class="fa-brands fa-tiktok"></i></a>
+          </p>
+          <p>Partnerships</p>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2023 SAAT Hotels. All rights reserved.
+      </div>
+    </footer>
+
+    <script>
+      // JavaScript function to apply filters
+      function applyFilters() {
+        // Get values of selected filters
+        var minPrice = document.getElementById("min-price").value;
+        var maxPrice = document.getElementById("max-price").value;
+        var brand = document.getElementById("brand").value;
+        var category = document.getElementById("category").value;
+        var search = document.getElementById("search").value;
+
+        // Redirect to filtered URL
+        var url =
+          "/cars_html?min_price=" +
+          minPrice +
+          "&max_price=" +
+          maxPrice +
+          "&brand=" +
+          brand +
+          "&category=" +
+          category +
+          "&search=" +
+          search;
+        window.location.href = url;
+      }
+    </script>
+    <script src="{{url_for('static',filename='script.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- My CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styleman.css') }}"
+    />
+
+    <title>Manager_Dashboard</title>
+  </head>
+  <style>
+	    .grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  width: 80%;
+  place-content: center;
+  margin: 0 auto;
+}
+
+/* Style the grid items (cards) */
+.grid-item {
+  border: 1px solid #474F52;
+  border-radius: 25px;
+  padding: 30px;
+  background-color: #aaaaaa00;
+  width: 300px;
+  color: black;
+}
+
+/* Style the image */
+.car-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Style the car details */
+.car-details {
+  margin-bottom: 30px
+}
+.count {
+  display: flex;
+  justify-content: space-around; /* Adjust alignment as needed */
+  background-color: #f0f0f0; /* Background color for the .count container */
+  padding: 20px; /* Padding around the .count container */
+}
+
+.divcount {
+  text-align: center; /* Center align the content within each div */
+}
+
+.divcount h2 {
+  padding: 5rem 1rem; /* Padding inside each h2 element */
+  background-color: #e0e0e0; /* Background color for the h2 elements */
+}
+
+.divcount h2 span {
+  font-weight: normal; /* Optional: Reset font weight for the span */
+}
+
+  </style>
+  <body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="/" class="brand">
+            <img src="{{ url_for('static', filename= 'photo/hhhh.png')}}" alt="" />
+          </a>
+          <ul class="side-menu top">
+            <li class="active">
+              <a href="#">
+                <i class="bx bxs-dashboard"></i>
+                <span class="text">Dashboard</span>
+              </a>
+            </li>
+            <li >
+              <a href="/admin_dashboard">
+                <i class="bx bxs-car"></i>
+                <span class="text">Managers</span>
+              </a>
+            </li>
+            <li>
+              <a href="/add_manager">
+                <i class="bx bxs-message-square-add"></i>
+                <span class="text">Add manager</span>
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="side-menu">
+            <li>
+              <a href="/" class="logout">
+                <i class="bx bxs-log-out-circle"></i>
+                <span class="text">Logout</span>
+              </a>
+            </li>
+          </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button type="submit" class="search-btn">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="notification">
+          <i class="bx bxs-bell"></i>
+          <span class="num">8</span>
+        </a>
+        <a href="/manager_profile" class="profile">
+          <img
+            src="{{ url_for('static', filename= 'photo/img/talal2.png')}}"
+            alt=""
+          />
+        </a>
+      </nav>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Dashboard Manager</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Home</a>
+              </li>
+            </ul>
+          </div>
+          <a href="#" class="btn-download">
+            <i class="bx bxs-cloud-download"></i>
+            <span class="text">Download PDF</span>
+          </a>
+        </div>
+        <ul class="box-info">
+          <li>
+            <i class='bx bxs-calendar-check' ></i>
+            <span class="text">
+              <h3>{{ num_cars }}</h3>
+              <p>Cars</p>
+            </span>
+          </li>
+          <li>
+            <i class='bx bxs-group' ></i>
+            <span class="text">
+              <h3>{{ num_managers }}</h3>
+              <p>Managers</p>
+            </span>
+          </li>
+          <li>
+            <i class='bx bxs-dollar-circle' ></i>
+            <span class="text">
+              <h3>{{ total_revenue }}$</h3>
+              <p>Total Rent</p>
+            </span>
+          </li>
+        </ul>
+        
+
+        <!-- Display number of clients -->
+        
+    
+        <!-- Display total revenue -->
+        
+        <div class="grid-container">
+         
+			<div class="grid-item">
+          <h2>Last Car Added</h2>
+          {% if last_car_added %}
+          <img
+            class="car-image"
+            src="{{ last_car_added[7] }}"
+            alt="Car Image"
+          />
+		  <div class="car-details">
+          <p>ID: {{ last_car_added[0] }}</p>
+          <p>Marque: {{ last_car_added[1] }}</p>
+          <p>Model: {{ last_car_added[2]}}</p>
+          <p>categorie: {{ last_car_added[4]}}</p>
+          <p>Immatriculation: {{ last_car_added[3]}}</p>
+          <p>Prix: {{last_car_added[5]}}</p>
+          <p>disponibilite: {{last_car_added[6]}}</p>
+
+          {% else %}
+          <p>No cars found.</p>
+          {% endif %}
+		</div>
+		</div>
+		<div class="grid-item">
+          <h2>Last Car Reserved</h2>
+          {% if last_car_reserved %}
+
+          <img
+            class="car-image"
+            src="{{ last_car_reserved[7] }}"
+            alt="Car Image"
+          />
+		  <div class="car-details">
+          <p>ID: {{ last_car_reserved[0] }}</p>
+          <p>Marque: {{ last_car_reserved[1] }}</p>
+          <p>Model: {{ last_car_reserved[2]}}</p>
+          <p>categorie: {{ last_car_reserved[4]}}</p>
+          <p>Immatriculation: {{ last_car_reserved[3]}}</p>
+          <p>Prix: {{last_car_reserved[5]}}</p>
+          <p>disponibilite: {{last_car_reserved[6]}}</p>
+          {% else %}
+          <p>No cars reserved.</p>
+          {% endif %}
+		</div>
+		</div>
+		</div>
+        </div>
+      </main>
+      <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script src="{{url_for('static', filename='js.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- My CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styleman.css') }}"
+    />
+
+    <title>Admin_Dashboard</title>
+  </head>
+  <style>
+/* Reset default margin and padding for all elements */
+body, table, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the table */
+table.main-ad {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Add some spacing below the table */
+}
+
+/* Style the table header */
+table.main-ad th {
+    background-color: #f8f9fa; /* Light gray background */
+    color: #333; /* Dark text color */
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6; /* Bottom border */
+}
+
+/* Style the table body rows */
+table.main-ad td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6; /* Bottom border for each row */
+}
+
+/* Alternate row background colors for better readability */
+table.main-ad tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Lighter gray for even rows */
+}
+
+/* Hover effect on table rows */
+table.main-ad tbody tr:hover {
+    background-color: #e9ecef; /* Light blue background on hover */
+}
+
+/* Style links within table cells */
+table.main-ad a {
+    text-decoration: none; /* Remove underline from links */
+    color: #007bff; /* Blue link color */
+    margin-right: 10px; /* Add spacing between multiple links */
+}
+
+/* Apply specific styles to Modify and Delete links */
+table.main-ad a:hover {
+    text-decoration: underline; /* Underline links on hover */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+  </style>
+  <body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <a href="/" class="brand">
+        <img src="{{ url_for('static', filename= 'photo/hhhh.png')}}" alt="" />
+      </a>
+      <ul class="side-menu top">
+        <li >
+          <a href="/homeadmin">
+            <i class="bx bxs-dashboard"></i>
+            <span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin_dashboard">
+            <i class="bx bxs-car"></i>
+            <span class="text">Managers</span>
+          </a>
+        </li>
+        <li>
+          <a href="/add_manager">
+            <i class="bx bxs-message-square-add"></i>
+            <span class="text">Add manager</span>
+          </a>
+        </li>
+        
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="/" class="logout">
+            <i class="bx bxs-log-out-circle"></i>
+            <span class="text">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button type="submit" class="search-btn">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="notification">
+          <i class="bx bxs-bell"></i>
+          <span class="num">8</span>
+        </a>
+        <a href="/manager_profile" class="profile">
+          <img
+            src="{{ url_for('static', filename= 'photo/img/talal2.png')}}"
+            alt=""
+          />
+        </a>
+      </nav>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Dashboard Admin</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Home</a>
+              </li>
+            </ul>
+          </div>
+          <a href="#" class="btn-download">
+            <i class="bx bxs-cloud-download"></i>
+            <span class="text">Download PDF</span>
+          </a>
+        </div>
+        
+        
+
+        <!-- Display number of clients -->
+        
+        
+        <h2 class="head">Managers List:</h2>
+        <table class="main-ad">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for manager in managers %}
+              <tr>
+                  <td>{{ manager[1] }} </td>
+                  <td>{{ manager[2] }}</td>
+                  <td>{{ manager[3] }}</td>
+                  <td>
+                      <a href="/modify_manager/{{ manager[0] }}">Modify</a>
+                      <a href="/delete_manager/{{ manager[0] }}">Delete</a>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      
+      </main>
+      <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script src="{{url_for('static', filename='js.js')}}"></script>
+  </body>
+</html>
