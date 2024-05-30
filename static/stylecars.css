@@ -16,6 +16,12 @@
 }
 body {
   font-family: "Poppins", sans-serif;
+  background-image:  url(./photo/back.png);
+  background-size: cover;
+  background-position: center; /* Center the background image */
+  background-attachment: fixed; /* Fix the background image in place */
+  background-repeat: no-repeat;
+
 }
 nav {
   background-color: transparent;
@@ -113,6 +119,11 @@ h2{
   border: 1px solid var(--grey);
   width: 550px;
   border-radius: 15px;
+  transition: all 0.3s ease;
+  background-color: var(--light);
+}
+.box2:hover{
+  transform: scale(1.02); 
 }
 .box2 img{
   width: 250px;

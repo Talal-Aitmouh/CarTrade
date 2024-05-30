@@ -53,9 +53,26 @@
       <!-- Brand Filter -->
       <select id="brand" name="brand">
         <option value="">All Brands</option>
-        <option value="Toyota">Toyota</option>
+        <option value="Audi">Audi</option>
+        <option value="BMW">BMW</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="Ferrari">Ferrari</option>
+        <option value="Ford">Ford</option>
         <option value="Honda">Honda</option>
-        <!-- Add more brand options as needed -->
+        <option value="Hyundai">Hyundai</option>
+        <option value="Jeep">Jeep</option>
+        <option value="Kia">Kia</option>
+        <option value="Lexus">Lexus</option>
+        <option value="Maserati">Maserati</option>
+        <option value="Mazda">Mazda</option>
+        <option value="Mercedes-Benz">Mercedes-Benz</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Porsche">Porsche</option>
+        <option value="Subaru">Subaru</option>
+        <option value="Tesla">Tesla</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Volvo">Volvo</option>
       </select>
 
       <!-- Category Filter -->
@@ -95,7 +112,9 @@
             <h2>Prix : {{ car[5] }} $/day</h2>
             <p>Immaticulation : {{ car[3] }}</p>
             <p class="lastone">Category : {{ car[4] }}</p>
-            <a href="{{ url_for('car_detail', car_id=car[0]) }} " class="see">See more</a>
+            <a href="{{ url_for('car_detail', car_id=car[0]) }} " class="see"
+              >See more</a
+            >
             <a
               class="{% if car[6] != 'Disponible' %} disabled {% endif %}"
               href="/reservation_form/{{ car[0] }}"
