@@ -425,7 +425,7 @@ def customer_login():
         session['logged_in'] = True
         session['email'] = email
         return redirect('/reservation_status')
-    return render_template('login.html')
+    return render_template('loginc.html')
 
 @app.route('/reservation_status')
 def reservation_status():

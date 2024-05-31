@@ -47,6 +47,7 @@ body {
     font-weight: 600;
     margin-bottom: 0.5rem;
     font-size: 1.6rem;
+    margin-bottom: 29px;
 }
 
 .log-in-card p {
@@ -208,31 +209,23 @@ nav ul li:nth-child(5)  {
     </ul>
     <ul class="right-nav">
       
-      <li><a href="/customer_login">LogIn</a></li>
+      <li><a href="#">LogIn</a></li>
     </ul>
   </nav>
     <section class="log-in-card">
         <div class="content">
-            <h2>Book Now</h2>
-            <p>Fill out the form and we will respond to you as soon as possible</p>
-            <form action="{{ url_for('submit_reservation', car_id=car_id) }}" method="POST">
+            <h2>Login</h2>
+
+            <form action="/customer_login" method="POST">
                 <div class="user-box">
-                    <input required="true" name="name" type="name">
-                    <label>Name</label>
-                </div>
-                <div class="user-box">
-                  <input required="true" name="prenom" type="name">
-                  <label>Last Name</label>
-              </div>
-                <div class="user-box">
-                    <input required="true" name="email" type="email">
+                    <input type="email" name="email" />
                     <label>Email</label>
                 </div>
                 <div class="user-box">
-                    <input required="true" name="phone" type="password">
-                    <label>Phone</label>
-                </div>
-                <input type="submit" value="Submit Reservation" class="btn-submit">
+                    <input type="tel" name="telephone" />
+                  <label>Phone</label>
+              </div>
+                <input type="submit" value="Login" class="btn-submit">
             </form>
             <a href="/cars_html" class="link-return">Retour</a>
         </div>
