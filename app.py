@@ -536,8 +536,13 @@ def client_summary():
         cursor.execute("SELECT COUNT(*) FROM reservation WHERE id_client=?", (client_id,))
         num_reservations = cursor.fetchone()[0]
 
-        # Calculate the total amount spent by this client
-        cursor.execute("SELECT SUM(voiture.prix) FROM reservation JOIN voiture ON reservation.id_voiture = voiture.id_voiture WHERE reservation.id_client=?", (client_id,))
+        # Calculate the total amount spent by this client, excluding refused reservations
+        cursor.execute("""
+            SELECT SUM(voiture.prix) 
+            FROM reservation 
+            JOIN voiture ON reservation.id_voiture = voiture.id_voiture 
+            WHERE reservation.id_client=? AND reservation.status != 'Refused'
+        """, (client_id,))
         total_spent = cursor.fetchone()[0] or 0  # Handle None (no reservations)
 
         # Create a summary dictionary for this client
@@ -546,7 +551,7 @@ def client_summary():
             'nom': nom,
             'prenom': prenom,
             'email': email,
-            'telephone' : telephone,
+            'telephone': telephone,
             'num_reservations': num_reservations,
             'total_spent': total_spent
         }
@@ -559,7 +564,6 @@ def client_summary():
 
     # Pass the client summaries to the template
     return render_template('client_summary.html', client_summaries=client_summaries)
-
 
 @app.route('/manager_profile', methods=['GET', 'POST'])
 def manager_profile():
