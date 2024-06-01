@@ -84,6 +84,12 @@ td {
 	cursor: pointer;
 	font-size: 16px;
 }
+.black img {
+  filter: grayscale(100%);
+  position: relative;
+   /* Ensure relative positioning for ::after */
+}
+
 
 
 
@@ -180,6 +186,7 @@ td {
 			</div>
             <div class="grid-container">
 				{% for car in cars %}
+				<div class="{% if car.disponibilite != 'Disponible' %} black {% endif %}">
 				<div class="grid-item">
 				  <img class="car-image" src="{{ car.image_url }}" alt="Car Image">
 				    <div class="car-details">
@@ -204,6 +211,7 @@ td {
 						  
 				    
 				</div>
+			</div>
 				{% endfor %}
 			  </div>
 			</div>
