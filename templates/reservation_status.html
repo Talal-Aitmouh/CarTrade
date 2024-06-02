@@ -6,104 +6,111 @@
     <title>Reservation Status</title>
 
 </head>
-<style>
-    body {
+<style>body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
+    margin: 50px auto;
     padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+h2, h3 {
     color: #333;
-}
-
-h3 {
-    margin-top: 20px;
-    color: #555;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
 }
 
 th, td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
-tr:hover {
+tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.disabled {
-    opacity: 0.6;
-}
-
-p.disabled {
-    font-style: italic;
-}
-
-p.disabled::first-letter {
-    text-transform: uppercase;
-}
-
-a {
-    text-decoration: none;
-    color: #007bff;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
 form {
-    display: inline; /* Align cancel button inline with text */
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 button {
-    background-color: #dc3545;
+    background-color: #007BFF;
     color: #fff;
+    padding: 10px 20px;
     border: none;
-    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #c82333;
-}
-.logout-link {
-    display: inline-block;
-    padding: 8px 16px;
-    margin-top: 20px;
-    text-decoration: none;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.logout-link:hover {
     background-color: #0056b3;
 }
 
+.message {
+    color: #ff0000;
+}
+
+.logout-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    table, th, td {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
 
 </style>
 <body>
@@ -136,9 +143,9 @@ button:hover {
                                         <p>Choose your rental details:</p>
                                         <form action="/confirm_reservation/{{ reservation[0] }}" method="POST">
                                             <label for="duration">Rental Duration (in days):</label>
-                                            <input type="number" id="duration" name="duration" min="1" required><br>
+                                            <input type="number" id="duration" name="duration" min="1" required oninput="updateTotalPrice(this, {{ reservation[10] }})"><br>
                                             <label for="total_price">Total Price:</label>
-                                            <input type="text" id="total_price" name="total_price" value="${{ reservation[10] }}" readonly><br>
+                                            <input type="text" id="total_price" name="total_price" class="total-price" value="${{ reservation[10] }}" readonly><br>
                                             <label for="pickup_date">Pickup Date:</label>
                                             <input type="date" id="pickup_date" name="pickup_date" required><br>
                                             <label for="payment_method">Payment Method:</label>
@@ -170,7 +177,14 @@ button:hover {
         </div>
         <a href="/" class="logout-link">Logout</a>
     </div>
-    
+    <script>
+        function updateTotalPrice(element, pricePerDay) {
+            const duration = element.value;
+            const totalPrice = duration * pricePerDay;
+            const totalPriceElement = element.closest('form').querySelector('.total-price');
+            totalPriceElement.value = `$${totalPrice.toFixed(2)}`;
+        }
+    </script>
 </body>
 
 
