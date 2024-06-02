@@ -127,6 +127,8 @@ h2{
 }
 .box2 img{
   width: 250px;
+  height: 187.5px;
+  object-fit: cover;
   margin: 15px 10px;
 }
 .box2 .details h1,h2,p{
