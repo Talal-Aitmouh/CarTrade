@@ -432,35 +432,57 @@ def reservation_status():
     if 'logged_in' in session:
         email = session['email']
         client_info = retrieve_client_info(email)
+        cars = retrieve_available_cars()  # Function to fetch available cars
         if client_info:
-            # Pass client information and reservations to the template
-            return render_template('reservation_status.html', client=client_info)
+            return render_template('reservation_status.html', client=client_info, cars=cars)
         else:
             flash("Client information not found", "error")
-            return redirect('/cus_login')
+            return redirect('/customer_login')
     else:
-        return redirect('/cus_login')
+        return redirect('/customer_login')
 
-
+def retrieve_available_cars():
+    conn = sqlite3.connect('loc.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM voiture WHERE disponibilite='Disponible' ORDER BY RANDOM() LIMIT 6")    
+    cars = cursor.fetchall()
+    conn.close()
+    return [{
+        "id_voiture": car[0],
+        "marque": car[1],
+        "modele": car[2],
+        "immatriculation": car[3],
+        "categorie": car[4],
+        "prix": car[5],
+        "disponibilite": car[6],
+        "image_url": car[7]
+    } for car in cars]
+    
 def retrieve_client_info(email):
     conn = sqlite3.connect('loc.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM client WHERE email=?", (email,))
     client_info = cursor.fetchone()
     if client_info:
-        # Extract client information
-        client_id, nom, prenom, _, telephone = client_info
-        # Fetch reservations for the client
-        cursor.execute("SELECT * FROM reservation inner join voiture on reservation.id_voiture = voiture.id_voiture WHERE reservation.id_client=?", (client_id,))
+        client_id, nom, prenom, email, telephone = client_info
+        cursor.execute("""
+            SELECT reservation.id_reservation, reservation.id_client, reservation.id_voiture, reservation.status, 
+                   reservation.id_manager, voiture.marque, voiture.modele, voiture.immatriculation, voiture.categorie, 
+                   voiture.prix, voiture.disponibilite, voiture.image_url
+            FROM reservation
+            INNER JOIN voiture ON reservation.id_voiture = voiture.id_voiture
+            WHERE reservation.id_client=?
+        """, (client_id,))
         reservations = cursor.fetchall()
         conn.close()
-        return [
-             client_id,
-            nom,
-             prenom,
-            telephone,
-             reservations
-        ]
+        return {
+            "id": client_id,
+            "nom": nom,
+            "prenom": prenom,
+            "email": email,
+            "telephone": telephone,
+            "reservations": reservations
+        }
     else:
         conn.close()
         return None

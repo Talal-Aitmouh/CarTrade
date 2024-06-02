@@ -1,191 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reservation Status</title>
-
-</head>
-<style>body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-radius: 8px;
-}
-
-h2, h3 {
-    color: #333;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #f4f4f9;
-    color: #333;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-form {
-    margin: 20px 0;
-}
-
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-button {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.message {
-    color: #ff0000;
-}
-
-.logout-link {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    color: #007BFF;
-    text-decoration: none;
-}
-
-.logout-link:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Styles */
-@media (max-width: 600px) {
-    .container {
-        padding: 15px;
-    }
-
-    table, th, td {
-        font-size: 14px;
-    }
-
-    button {
-        width: 100%;
-    }
-}
-
-</style>
-<body>
-    <div class="container">
-        <h2>Reservation Status</h2>
-        <div>
-            {% if client %}
-                <h3>Welcome, {{ client[1] }} {{ client[2] }}</h3>
-                <h3>Your Reservations:</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Reservation ID</th>
-                            <th>Status</th>
-                            <th>Car</th>
-                            <th>Price (per day)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for reservation in client[4] %}
-                            <tr>
-                                <td>{{ reservation[0] }}</td>
-                                <td>{{ reservation[3] }}</td>
-                                <td>{{ reservation[6] }}</td>
-                                <td>${{ reservation[10] }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    {% if reservation[3] == 'Accepted' %}
-                                        <p>Choose your rental details:</p>
-                                        <form action="/confirm_reservation/{{ reservation[0] }}" method="POST">
-                                            <label for="duration">Rental Duration (in days):</label>
-                                            <input type="number" id="duration" name="duration" min="1" required oninput="updateTotalPrice(this, {{ reservation[10] }})"><br>
-                                            <label for="total_price">Total Price:</label>
-                                            <input type="text" id="total_price" name="total_price" class="total-price" value="${{ reservation[10] }}" readonly><br>
-                                            <label for="pickup_date">Pickup Date:</label>
-                                            <input type="date" id="pickup_date" name="pickup_date" required><br>
-                                            <label for="payment_method">Payment Method:</label>
-                                            <select id="payment_method" name="payment_method" required>
-                                                <option value="credit_card">Credit Card</option>
-                                                <option value="paypal">PayPal</option>
-                                                <option value="bank_transfer">Bank Transfer</option>
-                                            </select><br>
-                                            
-                                            <button type="submit">Confirm Reservation</button>
-                                        </form>
-                                    {% elif reservation[3] == 'Refused' %}
-                                        <p>We're sorry that your request was refused. The car is in the process of maintenance or has already been reserved. You can view the list of available cars <a href="/cars_html">here</a>.</p>
-                                    {% endif %}
-                                    
-                                    {% if reservation[3] == 'Pending' %}
-                                        <form action="/cancel_reservation/{{ reservation[0] }}" method="POST">
-                                            <button type="submit">Cancel Reservation</button>
-                                        </form>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p class="message">No reservations found for this client.</p>
-            {% endif %}
-        </div>
-        <a href="/" class="logout-link">Logout</a>
-    </div>
-    <script>
-        function updateTotalPrice(element, pricePerDay) {
-            const duration = element.value;
-            const totalPrice = duration * pricePerDay;
-            const totalPriceElement = element.closest('form').querySelector('.total-price');
-            totalPriceElement.value = `$${totalPrice.toFixed(2)}`;
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
         }
-    </script>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2, h3 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .message {
+            color: #ff0000;
+            text-align: center;
+        }
+        .logout-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .car-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .cars {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            flex: 1 1 calc(33% - 20px);
+            display: flex;
+            flex-direction: column;
+        }
+        .cars img {
+            width: 100%;
+            object-fit: cover;
+        }
+        .cars h4 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .cars p {
+            margin: 0 10px 10px;
+        }
+        .cars form {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Reservation Status</h2>
+    <div>
+        {% if client %}
+        <h3>Welcome, {{ client.nom }} {{ client.prenom }}</h3>
+        <h3>Your Reservations:</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Reservation ID</th>
+                <th>Status</th>
+                <th>Car</th>
+                <th>Price (per day)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reservation in client.reservations %}
+            <tr>
+                <td>{{ reservation[0] }}</td>
+                <td>{{ reservation[3] }}</td>
+                <td>{{ reservation[5] }} {{ reservation[6] }}</td>
+                <td>${{ reservation[9] }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    {% if reservation[3] == 'Accepted' %}
+                    <p>Choose your rental details:</p>
+                    <form action="/confirm_reservation/{{ reservation[0] }}" method="POST">
+                        <div class="form-group">
+                            <label for="duration">Rental Duration (in days):</label>
+                            <input type="number" id="duration" name="duration" min="1" required oninput="updateTotalPrice(this, {{ reservation[9] }})"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="total_price">Total Price:</label>
+                            <input type="text" id="total_price" name="total_price" class="total-price" value="${{ reservation[9] }}" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickup_date">Pickup Date:</label>
+                            <input type="date" id="pickup_date" name="pickup_date" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment_method">Payment Method:</label>
+                            <select id="payment_method" name="payment_method" required>
+                                <option value="credit_card">Credit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                        <button type="submit">Confirm Reservation</button>
+                    </form>
+                    {% elif reservation[3] == 'Refused' %}
+                    <p>We're sorry that your request was refused. The car is in the process of maintenance or has already been reserved. You can view the list of available cars <a href="#" onclick="showAvailableCars(event)">here</a>.</p>
+                    <div id="available-cars" class="hidden">
+                        <h3>Available Cars:</h3>
+                        <div class="car-container">
+                            {% for car in cars %}
+                            <div class="cars">
+                                <img src="{{ car.image_url }}" alt="{{ car.marque }} {{ car.modele }}" />
+                                <h4>{{ car.marque }} {{ car.modele }}</h4>
+                                <p>Price per day: ${{ car.prix }}</p>
+                                <p>Immaticulation: {{ car.immatriculation }}</p>
+                                <p>Categorie: {{ car.categorie }}</p>
+                                <form action="{{ url_for('submit_reservation', car_id=car.id_voiture) }}" method="POST">
+                                    <input required="true" name="name" type="hidden" value="{{ client.nom }}"/>
+                                    <input required="true" name="prenom" type="hidden" value="{{ client.prenom }}"/>
+                                    <input required="true" name="email" type="hidden" value="{{ client.email }}"/>
+                                    <input required="true" name="phone" type="hidden" value="{{ client.telephone }}"/>
+                                    <input type="submit" value="Rent now">
+                                </form>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if reservation[3] == 'Pending' %}
+                    <form action="/cancel_reservation/{{ reservation[0] }}" method="POST">
+                        <button type="submit">Cancel Reservation</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="message">No reservations found for this client.</p>
+        {% endif %}
+    </div>
+    <a href="/" class="logout-link">Logout</a>
+</div>
+<script>
+    function updateTotalPrice(element, pricePerDay) {
+        const duration = element.value;
+        const totalPrice = duration * pricePerDay;
+        const totalPriceElement = element.closest("form").querySelector(".total-price");
+        totalPriceElement.value = `$${totalPrice.toFixed(2)}`;
+    }
+
+    function showAvailableCars(event) {
+        event.preventDefault();
+        const availableCarsSection = document.getElementById("available-cars");
+        availableCarsSection.classList.toggle("hidden");
+    }
+</script>
 </body>
-
-
 </html>
