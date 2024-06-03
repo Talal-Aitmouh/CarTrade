@@ -27,6 +27,32 @@ def fetch_cars_from_database():
     conn.close()
     return cars
 
+
+@app.route("/cars_html")
+def display_cars_html():
+    # Get filter parameters from the URL query string
+    min_price = request.args.get('min_price')
+    max_price = request.args.get('max_price')
+    brand = request.args.get('brand')
+    category = request.args.get('category')
+    search = request.args.get('search')
+    availability = request.args.get('availability')
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Number of items per page
+
+    # Fetch cars from the database with applied filters
+    cars = fetch_cars_from_database_filtered(min_price, max_price, brand, category, search, availability)
+    # random.shuffle(cars)
+
+    # Pagination logic
+    total_cars = len(cars)
+    start = (page - 1) * per_page
+    end = start + per_page
+    paginated_cars = cars[start:end]
+
+    # Render the HTML template with the shuffled list of cars
+    return render_template("cars.html", cars=paginated_cars, page=page, per_page=per_page, total_cars=total_cars)
+
 def fetch_cars_from_database_filtered(min_price=None, max_price=None, brand=None, category=None, search=None, availability=None):
     conn = sqlite3.connect("loc.db")
     cursor = conn.cursor()
@@ -61,6 +87,7 @@ def fetch_cars_from_database_filtered(min_price=None, max_price=None, brand=None
     
     conn.close()
     return cars
+
 @app.route("/cars")
 def get_cars():
     cars = fetch_cars_from_database()
@@ -171,24 +198,7 @@ def submit_reservation(car_id):
 def reservation_confirmation():
     return render_template("reservation_confirmation.html")
 
-@app.route("/cars_html")
-def display_cars_html():
-    # Get filter parameters from the URL query string
-    min_price = request.args.get('min_price')
-    max_price = request.args.get('max_price')
-    brand = request.args.get('brand')
-    category = request.args.get('category')
-    search = request.args.get('search')
-    availability = request.args.get('availability')
 
-    # Fetch cars from the database with applied filters
-    cars = fetch_cars_from_database_filtered(min_price, max_price, brand, category, search, availability)
-
-    # Shuffle the list of cars randomly
-    random.shuffle(cars)
-
-    # Render the HTML template with the shuffled list of cars
-    return render_template("cars.html", cars=cars)
 @app.route("/home")
 def home():
     if 'email' in session:

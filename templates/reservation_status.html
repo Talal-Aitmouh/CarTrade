@@ -75,14 +75,14 @@
             border-radius: 4px;
         }
         button {
-            background-color: #007bff;
+            background-color: #ff0000;
             color: #fff;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #b30000;
         }
         .hidden {
             display: none;
@@ -105,6 +105,7 @@
         }
         .cars img {
             width: 100%;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
         }
         .cars h4 {
@@ -170,6 +171,28 @@
                         </div>
                         <button type="submit">Confirm Reservation</button>
                     </form>
+                    <P>for more cars click <a href="#" onclick="showAvailableCars2(event)">here</a>.</p>
+                    <div id="available-cars2" class="hidden">
+                        <h3>Other Cars That You will like</h3>
+                        <div class="car-container">
+                            {% for car in cars %}
+                            <div class="cars">
+                                <img src="{{ car.image_url }}" alt="{{ car.marque }} {{ car.modele }}" />
+                                <h4>{{ car.marque }} {{ car.modele }}</h4>
+                                <p>Price per day: ${{ car.prix }}</p>
+                                <p>Immaticulation: {{ car.immatriculation }}</p>
+                                <p>Categorie: {{ car.categorie }}</p>
+                                <form action="{{ url_for('submit_reservation', car_id=car.id_voiture) }}" method="POST">
+                                    <input required="true" name="name" type="hidden" value="{{ client.nom }}"/>
+                                    <input required="true" name="prenom" type="hidden" value="{{ client.prenom }}"/>
+                                    <input required="true" name="email" type="hidden" value="{{ client.email }}"/>
+                                    <input required="true" name="phone" type="hidden" value="{{ client.telephone }}"/>
+                                    <input type="submit" value="Rent now">
+                                </form>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                     {% elif reservation[3] == 'Refused' %}
                     <p>We're sorry that your request was refused. The car is in the process of maintenance or has already been reserved. You can view the list of available cars <a href="#" onclick="showAvailableCars(event)">here</a>.</p>
                     <div id="available-cars" class="hidden">
@@ -205,7 +228,7 @@
             </tbody>
         </table>
         {% else %}
-        <p class="message">No reservations found for this client.</p>
+        <p class="message">you didn't reserve any car yet</p>
         {% endif %}
     </div>
     <a href="/" class="logout-link">Logout</a>
@@ -221,6 +244,11 @@
     function showAvailableCars(event) {
         event.preventDefault();
         const availableCarsSection = document.getElementById("available-cars");
+        availableCarsSection.classList.toggle("hidden");
+    }
+    function showAvailableCars2(event) {
+        event.preventDefault();
+        const availableCarsSection = document.getElementById("available-cars2");
         availableCarsSection.classList.toggle("hidden");
     }
 </script>

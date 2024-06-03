@@ -19,57 +19,56 @@
     <title>Manager_Dashboard</title>
   </head>
   <style>
-	    .grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  width: 80%;
-  place-content: center;
-  margin: 0 auto;
-}
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      width: 80%;
+      place-content: center;
+      margin: 0 auto;
+    }
 
-/* Style the grid items (cards) */
-.grid-item {
-  border: 1px solid #474F52;
-  border-radius: 25px;
-  padding: 30px;
-  background-color: #aaaaaa00;
-  width: 300px;
-  color: black;
-}
+    /* Style the grid items (cards) */
+    .grid-item {
+      border: 1px solid #474f52;
+      border-radius: 25px;
+      padding: 30px;
+      background-color: #aaaaaa00;
+      width: 300px;
+      color: black;
+    }
 
-/* Style the image */
-.car-image {
-  width: 250px;
-  height: 187.5px;
+    /* Style the image */
+    .car-image {
+      width: 250px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 5px;
-}
+      border-radius: 5px;
+    }
 
-/* Style the car details */
-.car-details {
-  margin-bottom: 30px
-}
-.count {
-  display: flex;
-  justify-content: space-around; /* Adjust alignment as needed */
-  background-color: #f0f0f0; /* Background color for the .count container */
-  padding: 20px; /* Padding around the .count container */
-}
+    /* Style the car details */
+    .car-details {
+      margin-bottom: 30px;
+    }
+    .count {
+      display: flex;
+      justify-content: space-around; /* Adjust alignment as needed */
+      background-color: #f0f0f0; /* Background color for the .count container */
+      padding: 20px; /* Padding around the .count container */
+    }
 
-.divcount {
-  text-align: center; /* Center align the content within each div */
-}
+    .divcount {
+      text-align: center; /* Center align the content within each div */
+    }
 
-.divcount h2 {
-  padding: 5rem 1rem; /* Padding inside each h2 element */
-  background-color: #e0e0e0; /* Background color for the h2 elements */
-}
+    .divcount h2 {
+      padding: 5rem 1rem; /* Padding inside each h2 element */
+      background-color: #e0e0e0; /* Background color for the h2 elements */
+    }
 
-.divcount h2 span {
-  font-weight: normal; /* Optional: Reset font weight for the span */
-}
-
+    .divcount h2 span {
+      font-weight: normal; /* Optional: Reset font weight for the span */
+    }
   </style>
   <body>
     <!-- SIDEBAR -->
@@ -170,90 +169,88 @@
               </li>
             </ul>
           </div>
-          
         </div>
         <ul class="box-info">
           <li>
-            <i class='bx bxs-calendar-check' ></i>
+            <i class="bx bxs-calendar-check"></i>
             <span class="text">
               <h3>{{ num_cars }}</h3>
               <p>Cars</p>
             </span>
           </li>
           <li>
-            <i class='bx bxs-group' ></i>
+            <i class="bx bxs-group"></i>
             <span class="text">
               <h3>{{ num_clients }}</h3>
               <p>Clients</p>
             </span>
           </li>
           <li>
-            <i class='bx bxs-dollar-circle' ></i>
+            <i class="bx bxs-dollar-circle"></i>
             <span class="text">
               <h3>{{ total_revenue }}$</h3>
               <p>Total Rent</p>
             </span>
           </li>
         </ul>
-      
+
         <div class="grid-container">
-         
-			<div class="grid-item">
-          <h2>Last Car Added</h2>
-          {% if last_car_added %}
-          <img
-            class="car-image"
-            src="{{ last_car_added[7] }}"
-            alt="Car Image"
-          />
-		  <div class="car-details">
-          <p>ID: {{ last_car_added[0] }}</p>
-          <p>Marque: {{ last_car_added[1] }}</p>
-          <p>Model: {{ last_car_added[2]}}</p>
-          <p>categorie: {{ last_car_added[4]}}</p>
-          <p>Immatriculation: {{ last_car_added[3]}}</p>
-          <p>Prix: {{last_car_added[5]}}</p>
-          <p>disponibilite: {{last_car_added[6]}}</p>
+          <div class="grid-item">
+            <h2>Last Car Added</h2>
+            {% if last_car_added %}
+            <img
+              class="car-image"
+              src="{{ last_car_added[7] }}"
+              alt="Car Image"
+            />
+            <div class="car-details">
+              <p>ID: {{ last_car_added[0] }}</p>
+              <p>Marque: {{ last_car_added[1] }}</p>
+              <p>Model: {{ last_car_added[2]}}</p>
+              <p>categorie: {{ last_car_added[4]}}</p>
+              <p>Immatriculation: {{ last_car_added[3]}}</p>
+              <p>Prix: {{last_car_added[5]}}</p>
+              <p>disponibilite: {{last_car_added[6]}}</p>
 
-          {% else %}
-          <p>No cars found.</p>
-          {% endif %}
-		</div>
-		</div>
-		<div class="grid-item">
-          <h2>Last Car Reserved</h2>
-          {% if last_car_reserved %}
+              {% else %}
+              <p>No cars found.</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="grid-item">
+            <h2>Last Car Reserved</h2>
+            {% if last_car_reserved %}
 
-          <img
-            class="car-image"
-            src="{{ last_car_reserved[7] }}"
-            alt="Car Image"
-          />
-		  <div class="car-details">
-          <p>ID: {{ last_car_reserved[0] }}</p>
-          <p>Marque: {{ last_car_reserved[1] }}</p>
-          <p>Model: {{ last_car_reserved[2]}}</p>
-          <p>categorie: {{ last_car_reserved[4]}}</p>
-          <p>Immatriculation: {{ last_car_reserved[3]}}</p>
-          <p>Prix: {{last_car_reserved[5]}}</p>
-          <p>disponibilite: {{last_car_reserved[6]}}</p>
-          {% else %}
-          <p>No cars reserved.</p>
-          {% endif %}
-		</div>
-		</div>
-		<div class="grid-item">
-          <h2>Last Reservation</h2>
-          {% if last_reservation %}
-		  <div class="car-details">
-          <p>ID: {{ last_reservation[0] }}</p>
-          <p>Status: {{ last_reservation[3] }}</p>
-          <!-- Add other reservation details as needed -->
-          {% else %}
-          <p>No reservations found.</p>
-          {% endif %}
-		</div>
-		</div>
+            <img
+              class="car-image"
+              src="{{ last_car_reserved[7] }}"
+              alt="Car Image"
+            />
+            <div class="car-details">
+              <p>ID: {{ last_car_reserved[0] }}</p>
+              <p>Marque: {{ last_car_reserved[1] }}</p>
+              <p>Model: {{ last_car_reserved[2]}}</p>
+              <p>categorie: {{ last_car_reserved[4]}}</p>
+              <p>Immatriculation: {{ last_car_reserved[3]}}</p>
+              <p>Prix: {{last_car_reserved[5]}}</p>
+              <p>disponibilite: {{last_car_reserved[6]}}</p>
+              {% else %}
+              <p>No cars reserved.</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="grid-item">
+            <h2>Last Reservation</h2>
+            {% if last_reservation %}
+            <div class="car-details">
+              <p>ID: {{ last_reservation[0] }}</p>
+              <p>Status: {{ last_reservation[3] }}</p>
+              <!-- Add other reservation details as needed -->
+              {% else %}
+              <p>No reservations found.</p>
+              {% endif %}
+            </div>
+          </div>
         </div>
       </main>
       <!-- MAIN -->

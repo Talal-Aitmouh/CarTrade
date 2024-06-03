@@ -127,7 +127,7 @@ h2{
 }
 .box2 img{
   width: 250px;
-  height: 187.5px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   margin: 15px 10px;
 }
@@ -171,6 +171,35 @@ h2{
 .lastone{
   margin-bottom: 20px;
 }
+/* Pagination Container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.pagination a, .pagination strong {
+  margin: 0 5px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination strong {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
 /* 
 .car-card {
   border: none;
